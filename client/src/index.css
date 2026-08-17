@@ -3,55 +3,91 @@
 @tailwind utilities;
 
 @layer base {
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #171515;
+    color: #F5F4F3;
+  }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0d1117; }
-::-webkit-scrollbar-thumb { background: #1e2d40; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #2d4a6b; }
+/* Custom Claymorphism scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #171515; }
+::-webkit-scrollbar-thumb { background: #3A3633; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #818CF8; }
 
-/* Gradient text utility */
+/* Claymorphism card utility */
+.clay-card {
+  background-color: #23201F;
+  border: 1px solid #3A3633;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.07), 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+  border-radius: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-card:hover {
+  border-color: #4A4440;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(129, 140, 248, 0.2);
+}
+
+/* Clay input field utility */
+.clay-input {
+  background-color: #1C1A19;
+  border: 1px solid #3A3633;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.04);
+  color: #F5F4F3;
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+}
+
+.clay-input:focus {
+  border-color: #818CF8;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(129, 140, 248, 0.25);
+}
+
+/* Clay button utility */
+.clay-button {
+  background: linear-gradient(180deg, #818CF8 0%, #6366F1 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 10px 24px -6px rgba(99, 102, 241, 0.4);
+  border-radius: 1rem;
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.clay-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 14px 28px -6px rgba(99, 102, 241, 0.5);
+  background: linear-gradient(180deg, #939BF4 0%, #6D70F3 100%);
+}
+
+.clay-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Periwinkle gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399);
+  background: linear-gradient(135deg, #FFFFFF 0%, #C7D2FE 50%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Animated border glow for cards */
-.glow-card {
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.15);
-  transition: box-shadow 0.3s ease;
-}
-.glow-card:hover {
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4), 0 8px 32px rgba(99, 102, 241, 0.1);
-}
-
-/* Fade-in animation for drafts appearing */
+/* Fade-in animation */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up {
   animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Pulse dot for "live" indicators */
+/* Live indicator pulse */
 @keyframes livePulse {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
+  50%       { opacity: 0.3; }
 }
 .animate-live { animation: livePulse 2s ease-in-out infinite; }
-
-/* Shimmer loading effect */
-@keyframes shimmer {
-  from { background-position: -400px 0; }
-  to   { background-position: 400px 0; }
-}
-.shimmer {
-  background: linear-gradient(90deg, #1e293b 25%, #2d3f55 50%, #1e293b 75%);
-  background-size: 400px 100%;
-  animation: shimmer 1.4s infinite;
-}

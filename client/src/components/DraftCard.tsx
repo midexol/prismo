@@ -1,37 +1,26 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// DraftCard.tsx
+// DraftCard.tsx — Claymorphism Theme
 // Shows a single platform draft (X Thread, LinkedIn, or YouTube Shorts).
-// Creator can approve it (which teaches the Minds Agent) or copy the content.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react';
-import { CheckCircle, Copy, Check, ExternalLink } from 'lucide-react';
+import { CheckCircle, Copy, Check, Sparkles } from 'lucide-react';
 
-// Platform configuration — colors, labels, icons per platform
 const PLATFORM_CONFIG = {
   twitter: {
     label: 'X (Twitter) Thread',
-    shortLabel: 'X Thread',
-    badge: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
-    accent: 'border-sky-500/40',
-    glow: 'hover:shadow-sky-500/10',
-    hookLabel: 'Opening Tweet (Hook)',
+    badge: 'bg-sky-500/10 text-sky-300 border-sky-500/20',
+    hookLabel: 'Opening Hook (Tweet 1)',
   },
   linkedin: {
     label: 'LinkedIn Post',
-    shortLabel: 'LinkedIn',
-    badge: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
-    accent: 'border-blue-500/40',
-    glow: 'hover:shadow-blue-500/10',
-    hookLabel: 'Opening Line (Hook)',
+    badge: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20',
+    hookLabel: 'Opening Bold Statement',
   },
   youtube_shorts: {
     label: 'YouTube Shorts Script',
-    shortLabel: 'YT Shorts',
-    badge: 'bg-red-500/15 text-red-300 border-red-500/30',
-    accent: 'border-red-500/40',
-    glow: 'hover:shadow-red-500/10',
-    hookLabel: 'First 3 Seconds (Hook)',
+    badge: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
+    hookLabel: 'First 3 Seconds (Visual/Audio Interrupt)',
   },
 } as const;
 
@@ -39,9 +28,9 @@ type Platform = keyof typeof PLATFORM_CONFIG;
 
 interface DraftData {
   hook: string;
-  thread?: string[];    // only Twitter
-  body?: string;        // only LinkedIn
-  script?: string;      // only YT Shorts
+  thread?: string[];
+  body?: string;
+  script?: string;
   cta: string;
 }
 
@@ -63,7 +52,6 @@ export const DraftCard: React.FC<DraftCardProps> = ({
   const [copied, setCopied] = useState(false);
   const config = PLATFORM_CONFIG[platform];
 
-  // Combine all text for copying to clipboard
   const getFullText = () => {
     const parts = [`${draft.hook}\n`];
     if (draft.thread) parts.push(draft.thread.join('\n\n'));
@@ -81,48 +69,44 @@ export const DraftCard: React.FC<DraftCardProps> = ({
 
   return (
     <div
-      className={`glow-card animate-fade-up flex flex-col bg-slate-900/60 border border-slate-800
-                  ${config.accent} rounded-2xl overflow-hidden hover:shadow-xl ${config.glow}
-                  transition-all duration-300 backdrop-blur-sm`}
+      className="clay-card flex flex-col animate-fade-up overflow-hidden"
       style={{ animationDelay: animDelay }}
     >
       {/* Card Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800/80">
-        <span className={`text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${config.badge}`}>
+      <div className="flex items-center justify-between px-5 py-4 border-b border-clay-border/60 bg-[#1F1C1B]">
+        <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${config.badge}`}>
           {config.label}
         </span>
-        <div className="flex items-center gap-2">
-          <button
-            id={`copy-${platform}`}
-            onClick={handleCopy}
-            title="Copy to clipboard"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
-          >
-            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-          </button>
-        </div>
+        <button
+          id={`copy-${platform}`}
+          onClick={handleCopy}
+          title="Copy to clipboard"
+          className="p-2 rounded-xl bg-clay-input border border-clay-border text-clay-muted hover:text-clay-fg hover:border-brand-periwinkle/50 transition-all"
+        >
+          {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+        </button>
       </div>
 
-      {/* Draft Content */}
-      <div className="flex-1 p-5 space-y-4 overflow-y-auto max-h-80">
+      {/* Card Body */}
+      <div className="flex-1 p-5 space-y-4 overflow-y-auto max-h-80 text-sm">
 
-        {/* Hook — highlighted as the most important part */}
-        <div className="bg-slate-950/80 border border-slate-700/50 rounded-xl p-4">
-          <div className="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-2">
+        {/* Hook */}
+        <div className="clay-input p-4 border border-brand-periwinkle/30 bg-[#1A1817]">
+          <div className="text-[10px] uppercase font-extrabold tracking-widest text-brand-periwinkle mb-1.5">
             {config.hookLabel}
           </div>
-          <p className="text-sm font-semibold text-amber-300 leading-relaxed">{draft.hook}</p>
+          <p className="text-sm font-semibold text-clay-fg leading-relaxed">{draft.hook}</p>
         </div>
 
         {/* Twitter thread */}
         {draft.thread && (
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {draft.thread.map((tweet, idx) => (
               <div key={idx} className="flex gap-3">
-                <span className="text-[10px] text-slate-600 font-mono mt-0.5 shrink-0">
+                <span className="text-[10px] text-clay-muted font-mono mt-0.5 shrink-0">
                   {idx + 2}/
                 </span>
-                <p className="text-xs text-slate-300 leading-relaxed">{tweet}</p>
+                <p className="text-xs text-clay-fg/90 leading-relaxed">{tweet}</p>
               </div>
             ))}
           </div>
@@ -130,42 +114,41 @@ export const DraftCard: React.FC<DraftCardProps> = ({
 
         {/* LinkedIn body */}
         {draft.body && (
-          <p className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap">{draft.body}</p>
+          <p className="text-xs text-clay-fg/90 leading-relaxed whitespace-pre-wrap">{draft.body}</p>
         )}
 
         {/* YT Shorts script */}
         {draft.script && (
-          <pre className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap font-mono bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+          <pre className="text-xs text-clay-fg/90 leading-relaxed whitespace-pre-wrap font-mono clay-input p-3">
             {draft.script}
           </pre>
         )}
 
         {/* CTA */}
-        <div className="border-t border-slate-800/80 pt-3">
-          <div className="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-1">CTA</div>
-          <p className="text-xs text-purple-300 italic">{draft.cta}</p>
+        <div className="border-t border-clay-border/60 pt-3">
+          <div className="text-[10px] uppercase font-bold tracking-widest text-clay-muted mb-1">Call to Action</div>
+          <p className="text-xs text-brand-periwinkle italic">{draft.cta}</p>
         </div>
       </div>
 
-      {/* Approve Button */}
-      <div className="p-4 border-t border-slate-800/80">
+      {/* Footer Approve Action */}
+      <div className="p-4 border-t border-clay-border/60 bg-[#1F1C1B]">
         {isApproved ? (
-          <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl
+          <div className="flex items-center justify-center gap-2 py-3 rounded-xl
                           bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
             <CheckCircle className="w-4 h-4" />
-            Approved — Agent Updated!
+            Approved & Saved to Minds Memory
           </div>
         ) : (
           <button
             id={`approve-${platform}`}
             onClick={() => onApprove(platform, draft.hook)}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl
-                       bg-slate-800 hover:bg-slate-700 border border-slate-700
-                       hover:border-emerald-500/50 text-slate-200 hover:text-emerald-300
-                       text-xs font-semibold transition-all"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
+                       bg-clay-input hover:bg-clay-hover border border-clay-border
+                       hover:border-brand-periwinkle text-clay-fg text-xs font-bold transition-all"
           >
-            <ExternalLink className="w-3.5 h-3.5" />
-            Approve This Draft
+            <Sparkles className="w-3.5 h-3.5 text-brand-periwinkle" />
+            Approve Draft (Train Mind)
           </button>
         )}
       </div>

@@ -1,48 +1,38 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// LoadingState.tsx
-// Shows a beautiful animated loading screen while the Minds Agent processes.
-// Has 3 distinct phases so users know what's happening at each step.
+// LoadingState.tsx — Claymorphism Theme
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useEffect, useState } from 'react';
 import { FileText, Brain, Wand2 } from 'lucide-react';
 
-// The 3 steps shown during loading — each takes roughly the same time
 const STEPS = [
   {
     icon: FileText,
     label: 'Fetching transcript',
-    detail: 'Reading the video captions from YouTube...',
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/30',
+    detail: 'Extracting video captions from YouTube...',
+    color: 'text-red-400',
   },
   {
     icon: Brain,
-    label: 'Checking Minds memory',
-    detail: 'Agent is reviewing your past approvals...',
-    color: 'text-purple-400',
-    bg: 'bg-purple-500/10',
-    border: 'border-purple-500/30',
+    label: 'Consulting Minds memory',
+    detail: 'Prismo Agent reviewing past approvals & style preferences...',
+    color: 'text-brand-periwinkle',
   },
   {
     icon: Wand2,
-    label: 'Generating 3 drafts',
-    detail: 'Creating native content for X, LinkedIn & Shorts...',
+    label: 'Splitting into 3 platforms',
+    detail: 'Generating native posts for X, LinkedIn & Shorts...',
     color: 'text-emerald-400',
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/30',
   },
 ];
 
 export const LoadingState: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
 
-  // Cycle through the 3 steps with a timer
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev < STEPS.length - 1 ? prev + 1 : prev));
-    }, 6000); // advance every 6 seconds
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 
@@ -50,47 +40,43 @@ export const LoadingState: React.FC = () => {
   const Icon = current.icon;
 
   return (
-    <div className="flex flex-col items-center justify-center py-20 space-y-10">
+    <div className="clay-card max-w-xl mx-auto py-16 px-8 flex flex-col items-center justify-center space-y-8">
 
-      {/* Animated icon */}
-      <div className={`relative flex items-center justify-center w-20 h-20 rounded-3xl ${current.bg} border ${current.border}`}>
-        <Icon className={`w-9 h-9 ${current.color} animate-pulse`} />
-        {/* Spinning ring */}
-        <div className="absolute inset-0 rounded-3xl border-2 border-transparent border-t-current animate-spin opacity-30"
-             style={{ borderTopColor: 'currentColor' }} />
+      {/* Claymorphic animated icon container */}
+      <div className="relative flex items-center justify-center w-24 h-24 rounded-2xl bg-clay-input border border-clay-border shadow-clay">
+        <Icon className={`w-10 h-10 ${current.color} animate-pulse`} />
+        <div className="absolute inset-0 rounded-2xl border-2 border-brand-periwinkle/30 animate-ping opacity-25" />
       </div>
 
-      {/* Current step text */}
-      <div className="text-center space-y-2">
-        <p className={`text-lg font-bold font-display ${current.color}`}>{current.label}</p>
-        <p className="text-sm text-slate-400">{current.detail}</p>
+      {/* Current step info */}
+      <div className="text-center space-y-1.5">
+        <h3 className={`text-lg font-bold ${current.color}`}>{current.label}</h3>
+        <p className="text-xs text-clay-muted">{current.detail}</p>
       </div>
 
-      {/* Step progress dots */}
-      <div className="flex items-center gap-3">
+      {/* Step dots */}
+      <div className="flex items-center gap-3 pt-2">
         {STEPS.map((step, idx) => {
-          const StepIcon = step.icon;
-          const isDone    = idx < activeStep;
-          const isActive  = idx === activeStep;
+          const isDone   = idx < activeStep;
+          const isActive = idx === activeStep;
           return (
             <div key={idx} className="flex items-center gap-3">
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-500
-                ${isActive  ? `${step.bg} ${step.color} border ${step.border}` : ''}
-                ${isDone    ? 'text-slate-400 line-through' : ''}
-                ${!isActive && !isDone ? 'text-slate-600' : ''}`}
+              <div className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all
+                ${isActive  ? 'bg-brand-periwinkle/10 text-brand-periwinkle border-brand-periwinkle/40 shadow-sm' : ''}
+                ${isDone    ? 'text-clay-muted border-clay-border bg-clay-input line-through' : ''}
+                ${!isActive && !isDone ? 'text-clay-muted/40 border-clay-border/40' : ''}`}
               >
-                <StepIcon className="w-3.5 h-3.5" />
                 {step.label}
               </div>
               {idx < STEPS.length - 1 && (
-                <div className={`w-6 h-px ${isDone ? 'bg-slate-500' : 'bg-slate-800'}`} />
+                <div className={`w-6 h-px ${isDone ? 'bg-brand-periwinkle/40' : 'bg-clay-border'}`} />
               )}
             </div>
           );
         })}
       </div>
 
-      <p className="text-xs text-slate-600">This usually takes 15–30 seconds</p>
+      <p className="text-[11px] text-clay-muted/60">Takes ~15–25 seconds for Minds AI generation</p>
     </div>
   );
 };

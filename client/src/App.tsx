@@ -1,19 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// App.tsx — Main Application
-//
-// This is the root of the React app. It holds all state and coordinates
-// between the InputPanel, DraftCards, MemoryPanel, and LoadingState.
-//
-// DATA FLOW:
-//   User submits URL + niche
-//     → calls POST /api/repurpose (server fetches transcript + sends to Minds)
-//     → Minds returns JSON with 3 drafts
-//     → Show DraftCard for each platform
-//   User approves a draft
-//     → calls POST /api/approve (server sends feedback to Minds conversation)
-//     → Minds memory updated (agent learns this preference)
-//   User or component calls GET /api/memory
-//     → shows real Minds conversation history in MemoryPanel
+// App.tsx — Prismo Claymorphism Theme
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useCallback } from 'react';
@@ -23,7 +9,6 @@ import { DraftCard } from './components/DraftCard';
 import { MemoryPanel } from './components/MemoryPanel';
 import { LoadingState } from './components/LoadingState';
 
-// Type definitions matching what the server returns from the Minds Agent
 interface Drafts {
   twitter: { hook: string; thread: string[]; cta: string };
   linkedin: { hook: string; body: string; cta: string };
@@ -44,7 +29,6 @@ interface ConversationMessage {
 }
 
 export default function App() {
-  // ─── State ────────────────────────────────────────────────────────────────
   const [isLoading, setIsLoading]             = useState(false);
   const [error, setError]                     = useState<string | null>(null);
   const [result, setResult]                   = useState<RepurposeResult | null>(null);
@@ -52,7 +36,6 @@ export default function App() {
   const [memoryMessages, setMemoryMessages]   = useState<ConversationMessage[]>([]);
   const [memoryLoading, setMemoryLoading]     = useState(false);
 
-  // ─── Fetch Minds memory history ───────────────────────────────────────────
   const fetchMemory = useCallback(async () => {
     setMemoryLoading(true);
     try {
@@ -60,16 +43,14 @@ export default function App() {
       const data = await res.json() as { messages?: ConversationMessage[]; error?: string };
       if (data.messages) setMemoryMessages(data.messages);
     } catch {
-      // Silently fail — memory panel just shows empty state
+      // Silently fail
     } finally {
       setMemoryLoading(false);
     }
   }, []);
 
-  // Load memory on first render
   useEffect(() => { fetchMemory(); }, [fetchMemory]);
 
-  // ─── Main repurpose action ────────────────────────────────────────────────
   const handleRepurpose = async (url: string, niche: string) => {
     setIsLoading(true);
     setError(null);
@@ -90,7 +71,6 @@ export default function App() {
       }
 
       setResult(data);
-      // Refresh memory after generation so the panel shows updated history
       await fetchMemory();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred.');
@@ -99,7 +79,6 @@ export default function App() {
     }
   };
 
-  // ─── Approve a draft ─────────────────────────────────────────────────────
   const handleApprove = async (platform: string, hook: string) => {
     try {
       await fetch('/api/approve', {
@@ -108,54 +87,48 @@ export default function App() {
         body: JSON.stringify({ platform, hookStyle: 'Memory-guided', hook }),
       });
       setApprovedPlatforms((prev) => new Set(prev).add(platform));
-      // Refresh memory to show the approval message in the panel
       setTimeout(fetchMemory, 1500);
     } catch {
-      // If approval fails, just mark it locally anyway
       setApprovedPlatforms((prev) => new Set(prev).add(platform));
     }
   };
 
-  // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#070B13] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-clay-bg text-clay-fg flex flex-col antialiased">
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-[#070B13]/90 backdrop-blur-md border-b border-slate-800/60 px-6 py-4">
+      {/* ── Claymorphism Navbar ────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-[#1F1C1B]/90 backdrop-blur-md border-b border-clay-border px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Logo */}
-            <div className="relative flex items-center justify-center w-9 h-9 rounded-xl
-                            bg-gradient-to-br from-blue-600 to-purple-600 shadow-lg shadow-blue-500/20">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl
+                            bg-brand-indigo border border-white/20 shadow-clay-button">
               <Brain className="w-5 h-5 text-white" />
-              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400
-                              rounded-full border-2 border-[#070B13] animate-live" />
+              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400
+                              rounded-full border-2 border-clay-bg animate-live" />
             </div>
             <div>
-              <h1 className="text-base font-bold font-display gradient-text">Prismo</h1>
-              <p className="text-[10px] text-slate-500">Powered by Minds · Creative Minds Jam #1</p>
+              <h1 className="text-lg font-bold font-display gradient-text tracking-wide">Prismo</h1>
+              <p className="text-[10px] font-semibold text-clay-muted">Powered by Minds AI · Creative Minds Jam #1</p>
             </div>
           </div>
 
-          {/* Minds badge */}
-          <div className="hidden md:flex items-center gap-2 text-xs text-slate-400
-                          bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full">
-            <Cpu className="w-3.5 h-3.5 text-purple-400" />
-            Minds Agent Active
+          <div className="flex items-center gap-2 text-xs text-clay-muted
+                          bg-clay-input border border-clay-border px-3.5 py-1.5 rounded-full shadow-inner">
+            <Cpu className="w-3.5 h-3.5 text-brand-periwinkle" />
+            Minds Agent Ready
           </div>
         </div>
       </header>
 
-      {/* ── Main Content ───────────────────────────────────────────────────── */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 lg:px-8 py-10 space-y-10">
+      {/* ── Main Workspace ──────────────────────────────────────────────── */}
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 md:px-8 py-10 space-y-10">
 
-        {/* Hero section — shown before first result */}
         {!result && !isLoading && (
-          <div className="text-center space-y-6 py-8">
+          <div className="text-center space-y-4 py-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold
-                            bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-live" />
-              Your Minds Agent is ready
+                            bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/30">
+              <span className="w-2 h-2 rounded-full bg-brand-periwinkle animate-live" />
+              Claymorphism UI Active · Minds Agent Online
             </div>
 
             <h2 className="text-4xl md:text-5xl font-extrabold font-display leading-tight">
@@ -163,62 +136,54 @@ export default function App() {
               <span className="gradient-text">Three platforms. Prismo.</span>
             </h2>
 
-            <p className="text-slate-400 text-base max-w-lg mx-auto leading-relaxed">
-              Paste a YouTube URL. Prismo's Minds Agent reads the transcript,
-              remembers your style, and generates native content for X, LinkedIn,
-              and YouTube Shorts — instantly.
+            <p className="text-clay-muted text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+              Paste a YouTube video URL. Prismo's Minds Agent analyzes the transcript,
+              recalls your past style approvals, and splits it into native posts for X, LinkedIn, and Shorts.
             </p>
           </div>
         )}
 
-        {/* Back button — shown after result */}
         {result && !isLoading && (
           <button
             onClick={() => { setResult(null); setError(null); }}
-            className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-sm text-clay-muted hover:text-clay-fg transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Repurpose another video
+            Split another video
           </button>
         )}
 
-        {/* Input form */}
         {!result && !isLoading && (
           <InputPanel onSubmit={handleRepurpose} isLoading={isLoading} />
         )}
 
-        {/* Loading state */}
         {isLoading && <LoadingState />}
 
-        {/* Error message */}
         {error && (
           <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30
-                          text-red-300 rounded-2xl p-5 text-sm max-w-2xl mx-auto">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                          text-red-300 rounded-2xl p-5 text-sm max-w-2xl mx-auto clay-card">
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
             <div>
-              <p className="font-bold mb-1">Something went wrong</p>
-              <p className="text-red-400/80">{error}</p>
+              <p className="font-bold mb-1">Error</p>
+              <p className="text-red-300/80">{error}</p>
             </div>
           </div>
         )}
 
-        {/* ── Draft Cards + Memory Panel ─────────────────────────────────── */}
         {result && !isLoading && (
           <div className="space-y-8">
 
-            {/* Memory insight banner */}
             {result.adapted_from_memory && (
               <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30
-                              text-emerald-300 rounded-2xl px-5 py-3 text-sm max-w-2xl mx-auto">
-                <Brain className="w-4 h-4 shrink-0" />
+                              text-emerald-300 rounded-2xl px-5 py-3.5 text-sm max-w-2xl mx-auto shadow-sm">
+                <Brain className="w-4 h-4 shrink-0 text-emerald-400" />
                 <span>
-                  <strong>Memory active:</strong> {result.memory_insight}
+                  <strong>Minds Memory Active:</strong> {result.memory_insight}
                 </span>
               </div>
             )}
 
-            {/* 3-column draft grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <DraftCard
                 platform="twitter"
                 draft={result.drafts.twitter}
@@ -242,7 +207,6 @@ export default function App() {
               />
             </div>
 
-            {/* Memory Panel */}
             <MemoryPanel
               messages={memoryMessages}
               memoryInsight={result.memory_insight}
@@ -253,7 +217,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Memory panel shown before first result too */}
         {!result && !isLoading && (
           <div className="max-w-2xl mx-auto">
             <MemoryPanel
@@ -268,14 +231,14 @@ export default function App() {
 
       </main>
 
-      {/* ── Footer ─────────────────────────────────────────────────────────── */}
-      <footer className="border-t border-slate-800/60 py-6 text-center text-xs text-slate-600">
+      {/* ── Footer ──────────────────────────────────────────────────────── */}
+      <footer className="border-t border-clay-border py-6 text-center text-xs text-clay-muted bg-[#1F1C1B]">
         Built for{' '}
         <a href="https://creativemindsjam.com" target="_blank" rel="noreferrer"
-           className="text-blue-500 hover:underline">Creative Minds Jam #1</a>
+           className="text-brand-periwinkle hover:underline font-semibold">Creative Minds Jam #1</a>
         {' '}· Prismo is powered by{' '}
         <a href="https://hellominds.ai" target="_blank" rel="noreferrer"
-           className="text-purple-400 hover:underline">Minds by Animoca Brands</a>
+           className="text-brand-periwinkle hover:underline font-semibold">Minds by Animoca Brands</a>
       </footer>
 
     </div>

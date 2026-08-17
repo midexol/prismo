@@ -15,12 +15,12 @@
 import 'dotenv/config';             // Load .env file first
 import express from 'express';
 import cors from 'cors';
-import { fetchTranscript } from './transcript.js';
+import { fetchTranscript } from './transcript.ts';
 import {
   repurposeWithMinds,
   sendApprovalToMinds,
   getConversationHistory,
-} from './minds.js';
+} from './minds.ts';
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 3001;
