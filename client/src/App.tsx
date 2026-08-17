@@ -11,6 +11,7 @@ import { LoadingState } from './components/LoadingState';
 import { AuthModal } from './components/AuthModal';
 import { AudienceResonanceAnalyzer } from './components/AudienceResonanceAnalyzer';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
+import { PrismaHero } from './components/ui/prisma-hero';
 
 interface Drafts {
   twitter: { hook: string; thread: string[]; cta: string };
@@ -223,23 +224,13 @@ export default function App() {
           <div className="space-y-10">
 
             {!result && !isLoading && (
-              <div className="text-center space-y-4 py-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold
-                                bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/30 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-brand-periwinkle animate-live" />
-                  Prismo 2.0 · Autonomous Virality & Memory Engine
-                </div>
-
-                <h2 className="text-4xl md:text-5xl font-extrabold font-display leading-tight">
-                  The AI Engine That Learns<br />
-                  <span className="gradient-text">How You Speak.</span>
-                </h2>
-
-                <p className="text-clay-muted text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                  Prismo extracts high-retention quotes, simulates virality across X, LinkedIn, & Shorts,
-                  and evolves with your personal creator voice using Minds persistent memory.
-                </p>
-              </div>
+              <PrismaHero
+                onStartRepurposing={() => {
+                  const inputElem = document.getElementById('repurpose-button');
+                  if (inputElem) inputElem.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onExploreVirality={() => setActiveTab('resonance')}
+              />
             )}
 
             {result && !isLoading && (
