@@ -1,4 +1,4 @@
-# Prismo 🌈
+# Prismo
 
 > **Creative Minds Jam #1 Submission** | Built with [Minds by Animoca Brands](https://hellominds.ai)
 

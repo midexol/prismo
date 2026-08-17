@@ -115,8 +115,11 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
           </div>
 
-          <div className="p-4 rounded-xl bg-clay-input border border-clay-border text-xs text-clay-muted leading-relaxed">
-            💡 <strong className="text-clay-fg">Minds Insight:</strong> Your audience responds 34% better to <span className="text-brand-periwinkle font-semibold">Contrarian statements</span> than question-style hooks. Prismo automatically prioritizes bold openings in future drafts.
+          <div className="p-4 rounded-xl bg-clay-input border border-clay-border text-xs text-clay-muted leading-relaxed flex items-start gap-2">
+            <Zap className="w-4 h-4 text-brand-periwinkle shrink-0 mt-0.5" />
+            <div>
+              <strong className="text-clay-fg">Minds Insight:</strong> Your audience responds 34% better to <span className="text-brand-periwinkle font-semibold">Contrarian statements</span> than question-style hooks. Prismo automatically prioritizes bold openings in future drafts.
+            </div>
           </div>
         </div>
 
