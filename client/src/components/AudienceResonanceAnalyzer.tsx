@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react';
-import { BarChart3, Zap, Flame, ShieldAlert, Sparkles, TrendingUp, Compass, MessageSquareQuote } from 'lucide-react';
+import { BarChart3, Zap, Flame, TrendingUp, MessageSquareQuote } from 'lucide-react';
 
 interface MetricItem {
   name: string;
@@ -16,9 +16,9 @@ interface ResonanceData {
   voiceMatchPct: number;
   retentionQuotes: { timestamp: string; text: string; angle: string }[];
   platformFit: {
-    twitter: { score: number; reason: string };
-    linkedin: { score: number; reason: string };
-    youtube_shorts: { score: number; reason: string };
+    twitter: { score: number; scoreLabel?: string; reason: string };
+    linkedin: { score: number; scoreLabel?: string; reason: string };
+    youtube_shorts: { score: number; scoreLabel?: string; reason: string };
   };
   hookMetrics: MetricItem[];
 }
@@ -29,7 +29,7 @@ interface AudienceResonanceAnalyzerProps {
 }
 
 export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps> = ({
-  transcriptPreview = "In this video we analyze why traditional content repurposing fails and how AI memory continuity creates authentic creator voices...",
+  transcriptPreview: _transcriptPreview = "In this video we analyze why traditional content repurposing fails...",
   niche = "Tech & Creator Economy",
 }) => {
   const [selectedTab, setSelectedTab] = useState<'resonance' | 'quotes' | 'platformFit'>('resonance');

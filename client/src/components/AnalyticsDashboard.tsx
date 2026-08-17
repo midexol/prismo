@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React from 'react';
-import { TrendingUp, Clock, Brain, Layers, BarChart2, ShieldCheck, Sparkles, Zap } from 'lucide-react';
+import { TrendingUp, Clock, Brain, Layers, BarChart2, ShieldCheck, Zap } from 'lucide-react';
 
 interface AnalyticsDashboardProps {
   messageCount?: number;
@@ -12,7 +12,7 @@ interface AnalyticsDashboardProps {
 
 export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   messageCount = 14,
-  niche = 'Tech & AI Creator',
+  niche: _niche = 'Tech & AI Creator',
 }) => {
   return (
     <div className="space-y-6 animate-fade-up">

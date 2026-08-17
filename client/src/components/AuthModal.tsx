@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react';
-import { X, Sparkles, Check, ArrowRight, ShieldCheck, Key } from 'lucide-react';
+import { X, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -17,7 +17,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [niche, setNiche] = useState('AI & Tech Creator');
-  const [apiKey, setApiKey] = useState('');
 
   if (!isOpen) return null;
 

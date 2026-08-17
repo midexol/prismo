@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useCallback } from 'react';
-import { Brain, Cpu, ArrowLeft, AlertCircle, LogIn, User, Sparkles, BarChart3, Layers, Database, ShieldCheck } from 'lucide-react';
+import { Brain, ArrowLeft, AlertCircle, LogIn, BarChart3, Layers, Database, ShieldCheck } from 'lucide-react';
 import { InputPanel } from './components/InputPanel';
 import { DraftCard } from './components/DraftCard';
 import { MemoryPanel } from './components/MemoryPanel';
