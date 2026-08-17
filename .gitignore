@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+dist/
+
+# Environment (NEVER commit this - it has your API keys!)
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output
+dist-ssr/
