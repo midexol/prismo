@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// App.tsx — Prismo (Clean Modern Typography & Media-First Landing)
+// App.tsx — Prismo (Edge-to-Edge Full Bleed Media Hero, Single Floating Nav)
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useCallback } from 'react';
@@ -105,7 +105,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0C0C] text-[#F5F4F1] flex flex-col font-sans antialiased">
+    <div className="min-h-screen bg-[#0D0C0C] text-[#F5F4F1] flex flex-col font-sans antialiased selection:bg-brand-periwinkle selection:text-black">
 
       {/* Auth Modal */}
       <AuthModal
@@ -114,11 +114,11 @@ export default function App() {
         onLogin={(userInfo) => setUser(userInfo)}
       />
 
-      {/* ── Sleek Clean Navbar ────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 bg-[#0D0C0C]/90 backdrop-blur-md px-6 md:px-12 py-4">
+      {/* ── Single Floating Navbar (Overlaying Hero & Content) ────────────────────── */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0D0C0C]/80 backdrop-blur-xl border-b border-white/5 px-6 md:px-12 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
 
-          {/* Clean Typography Brand Logo — No Brain Logo */}
+          {/* Clean Typography Brand Logo */}
           <button
             onClick={() => setActiveTab('studio')}
             className="text-2xl font-display font-extrabold tracking-tight text-[#F5F4F1] hover:text-brand-periwinkle transition-colors"
@@ -127,12 +127,12 @@ export default function App() {
           </button>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#161514] p-1.5 rounded-full">
+          <nav className="hidden md:flex items-center gap-1 bg-[#181615]/80 backdrop-blur-md p-1.5 rounded-full border border-white/5">
             <button
               onClick={() => setActiveTab('studio')}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'studio'
-                  ? 'bg-[#23201F] text-[#F5F4F1] shadow-sm'
+                  ? 'bg-[#252220] text-[#F5F4F1] shadow-sm'
                   : 'text-[#8C8782] hover:text-[#F5F4F1]'
               }`}
             >
@@ -144,7 +144,7 @@ export default function App() {
               onClick={() => setActiveTab('resonance')}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'resonance'
-                  ? 'bg-[#23201F] text-brand-periwinkle shadow-sm'
+                  ? 'bg-[#252220] text-brand-periwinkle shadow-sm'
                   : 'text-[#8C8782] hover:text-[#F5F4F1]'
               }`}
             >
@@ -156,7 +156,7 @@ export default function App() {
               onClick={() => setActiveTab('analytics')}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'analytics'
-                  ? 'bg-[#23201F] text-emerald-400 shadow-sm'
+                  ? 'bg-[#252220] text-emerald-400 shadow-sm'
                   : 'text-[#8C8782] hover:text-[#F5F4F1]'
               }`}
             >
@@ -168,7 +168,7 @@ export default function App() {
               onClick={() => setActiveTab('memory')}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'memory'
-                  ? 'bg-[#23201F] text-purple-400 shadow-sm'
+                  ? 'bg-[#252220] text-purple-400 shadow-sm'
                   : 'text-[#8C8782] hover:text-[#F5F4F1]'
               }`}
             >
@@ -180,11 +180,11 @@ export default function App() {
           {/* User Auth */}
           <div className="flex items-center gap-3">
             {user ? (
-              <span className="text-xs font-bold text-[#F5F4F1] px-4 py-2 rounded-full bg-[#161514]">{user.name}</span>
+              <span className="text-xs font-bold text-[#F5F4F1] px-4 py-2 rounded-full bg-[#181615] border border-white/5">{user.name}</span>
             ) : (
               <button
                 onClick={() => setIsAuthOpen(true)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-periwinkle hover:bg-brand-indigo text-black text-xs uppercase tracking-wider font-bold transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-periwinkle hover:bg-brand-indigo text-black text-xs uppercase tracking-wider font-bold transition-all shadow-md shadow-indigo-500/20"
               >
                 <LogIn className="w-3.5 h-3.5" />
                 Sign In
@@ -195,94 +195,107 @@ export default function App() {
         </div>
       </header>
 
+      {/* Mobile Nav Bar */}
+      <div className="flex md:hidden fixed top-16 left-0 right-0 z-40 items-center justify-around bg-[#161514]/90 backdrop-blur-md px-2 py-2 text-xs border-b border-white/5">
+        <button onClick={() => setActiveTab('studio')} className={`px-3 py-1.5 rounded-lg ${activeTab === 'studio' ? 'bg-[#252220] font-bold text-[#F5F4F1]' : 'text-[#8C8782]'}`}>Studio</button>
+        <button onClick={() => setActiveTab('resonance')} className={`px-3 py-1.5 rounded-lg ${activeTab === 'resonance' ? 'bg-[#252220] font-bold text-brand-periwinkle' : 'text-[#8C8782]'}`}>Virality</button>
+        <button onClick={() => setActiveTab('analytics')} className={`px-3 py-1.5 rounded-lg ${activeTab === 'analytics' ? 'bg-[#252220] font-bold text-emerald-400' : 'text-[#8C8782]'}`}>Analysis</button>
+        <button onClick={() => setActiveTab('memory')} className={`px-3 py-1.5 rounded-lg ${activeTab === 'memory' ? 'bg-[#252220] font-bold text-purple-400' : 'text-[#8C8782]'}`}>Memory</button>
+      </div>
+
       {/* ── Main Content Area ───────────────────────────────────────────── */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
+      <main className="flex-1 w-full pt-16">
 
         {/* ── TAB 1: STUDIO ──────────────────────────────────────────────── */}
         {activeTab === 'studio' && (
-          <div className="space-y-12">
+          <div className="space-y-16">
 
+            {/* True 100% Edge-to-Edge Hero without side padding or inner nav */}
             {!result && !isLoading && (
               <PrismaHero
                 onStartRepurposing={() => {
                   const inputElem = document.getElementById('repurpose-button');
                   if (inputElem) inputElem.scrollIntoView({ behavior: 'smooth' });
                 }}
-                onSelectTab={(tab) => setActiveTab(tab)}
               />
             )}
 
-            {result && !isLoading && (
-              <button
-                onClick={() => { setResult(null); setError(null); }}
-                className="flex items-center gap-2 text-sm text-[#8C8782] hover:text-[#F5F4F1] transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Split another video
-              </button>
-            )}
+            {/* Container for Input Form & Results */}
+            <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-12 pb-16">
 
-            {!result && !isLoading && (
-              <InputPanel onSubmit={handleRepurpose} isLoading={isLoading} />
-            )}
+              {result && !isLoading && (
+                <button
+                  onClick={() => { setResult(null); setError(null); }}
+                  className="flex items-center gap-2 text-sm text-[#8C8782] hover:text-[#F5F4F1] transition-colors pt-6"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Split another video
+                </button>
+              )}
 
-            {isLoading && <LoadingState />}
+              {!result && !isLoading && (
+                <InputPanel onSubmit={handleRepurpose} isLoading={isLoading} />
+              )}
 
-            {error && (
-              <div className="flex items-start gap-3 bg-red-500/10 text-red-300 rounded-2xl p-5 text-sm max-w-2xl mx-auto clay-card">
-                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
-                <div>
-                  <p className="font-bold mb-1">Error</p>
-                  <p className="text-red-300/80">{error}</p>
+              {isLoading && <LoadingState />}
+
+              {error && (
+                <div className="flex items-start gap-3 bg-red-500/10 text-red-300 rounded-2xl p-5 text-sm max-w-2xl mx-auto clay-card">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
+                  <div>
+                    <p className="font-bold mb-1">Error</p>
+                    <p className="text-red-300/80">{error}</p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {result && !isLoading && (
-              <div className="space-y-8">
-                {/* Virality Simulator Component */}
-                <AudienceResonanceAnalyzer transcriptPreview={result.transcript_preview} niche={user?.niche || 'Tech & Creator Economy'} />
+              {result && !isLoading && (
+                <div className="space-y-8">
+                  {/* Virality Simulator Component */}
+                  <AudienceResonanceAnalyzer transcriptPreview={result.transcript_preview} niche={user?.niche || 'Tech & Creator Economy'} />
 
-                {/* 3 Platform Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <DraftCard
-                    platform="twitter"
-                    draft={result.drafts.twitter}
-                    onApprove={handleApprove}
-                    isApproved={approvedPlatforms.has('twitter')}
-                    animDelay="0ms"
-                  />
-                  <DraftCard
-                    platform="linkedin"
-                    draft={result.drafts.linkedin}
-                    onApprove={handleApprove}
-                    isApproved={approvedPlatforms.has('linkedin')}
-                    animDelay="100ms"
-                  />
-                  <DraftCard
-                    platform="youtube_shorts"
-                    draft={result.drafts.youtube_shorts}
-                    onApprove={handleApprove}
-                    isApproved={approvedPlatforms.has('youtube_shorts')}
-                    animDelay="200ms"
-                  />
+                  {/* 3 Platform Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <DraftCard
+                      platform="twitter"
+                      draft={result.drafts.twitter}
+                      onApprove={handleApprove}
+                      isApproved={approvedPlatforms.has('twitter')}
+                      animDelay="0ms"
+                    />
+                    <DraftCard
+                      platform="linkedin"
+                      draft={result.drafts.linkedin}
+                      onApprove={handleApprove}
+                      isApproved={approvedPlatforms.has('linkedin')}
+                      animDelay="100ms"
+                    />
+                    <DraftCard
+                      platform="youtube_shorts"
+                      draft={result.drafts.youtube_shorts}
+                      onApprove={handleApprove}
+                      isApproved={approvedPlatforms.has('youtube_shorts')}
+                      animDelay="200ms"
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+
+            </div>
 
           </div>
         )}
 
         {/* ── TAB 2: VIRALITY SIMULATOR ───────────────────────────────────── */}
         {activeTab === 'resonance' && (
-          <div className="space-y-6">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-6">
             <AudienceResonanceAnalyzer niche={user?.niche || 'Tech & AI Creator'} />
           </div>
         )}
 
         {/* ── TAB 3: DEDICATED ANALYSIS DASHBOARD ─────────────────────────── */}
         {activeTab === 'analytics' && (
-          <div className="space-y-6">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-6">
             <div className="flex items-center justify-between pb-4 border-b border-[#252220]">
               <div>
                 <h2 className="text-2xl font-display font-extrabold text-[#F5F4F1]">Prismo Analytics</h2>
@@ -298,7 +311,7 @@ export default function App() {
 
         {/* ── TAB 4: MINDS MEMORY ────────────────────────────────────────── */}
         {activeTab === 'memory' && (
-          <div className="space-y-6">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-6">
             <MemoryPanel
               messages={memoryMessages}
               memoryInsight="Prismo Agent reads conversation history to adapt hook styles automatically."
@@ -312,7 +325,7 @@ export default function App() {
       </main>
 
       {/* ── Footer ──────────────────────────────────────────────────────── */}
-      <footer className="py-8 text-center text-xs text-[#8C8782] bg-[#0D0C0C]">
+      <footer className="py-8 text-center text-xs text-[#8C8782] bg-[#0D0C0C] border-t border-white/5">
         Built for{' '}
         <a href="https://creativemindsjam.com" target="_blank" rel="noreferrer"
            className="text-[#818CF8] hover:underline font-semibold">Creative Minds Jam #1</a>
