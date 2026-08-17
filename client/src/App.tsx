@@ -132,7 +132,7 @@ export default function App() {
                               rounded-full border-2 border-[#070B13] animate-live" />
             </div>
             <div>
-              <h1 className="text-base font-bold font-display gradient-text">RepurposeAI</h1>
+              <h1 className="text-base font-bold font-display gradient-text">Prismo</h1>
               <p className="text-[10px] text-slate-500">Powered by Minds · Creative Minds Jam #1</p>
             </div>
           </div>
@@ -160,11 +160,11 @@ export default function App() {
 
             <h2 className="text-4xl md:text-5xl font-extrabold font-display leading-tight">
               One video.<br />
-              <span className="gradient-text">Three platforms. Done.</span>
+              <span className="gradient-text">Three platforms. Prismo.</span>
             </h2>
 
             <p className="text-slate-400 text-base max-w-lg mx-auto leading-relaxed">
-              Paste a YouTube URL. Your Minds Agent reads the transcript,
+              Paste a YouTube URL. Prismo's Minds Agent reads the transcript,
               remembers your style, and generates native content for X, LinkedIn,
               and YouTube Shorts — instantly.
             </p>
@@ -273,7 +273,7 @@ export default function App() {
         Built for{' '}
         <a href="https://creativemindsjam.com" target="_blank" rel="noreferrer"
            className="text-blue-500 hover:underline">Creative Minds Jam #1</a>
-        {' '}· Powered by{' '}
+        {' '}· Prismo is powered by{' '}
         <a href="https://hellominds.ai" target="_blank" rel="noreferrer"
            className="text-purple-400 hover:underline">Minds by Animoca Brands</a>
       </footer>

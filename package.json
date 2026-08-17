@@ -1,8 +1,8 @@
 {
-  "name": "repurpose-ai",
+  "name": "prismo",
   "version": "1.0.0",
   "private": true,
-  "description": "AI-powered content repurposing tool powered by Minds by Animoca Brands",
+  "description": "Prismo — AI-powered content splitting tool powered by Minds by Animoca Brands",
   "scripts": {
     "install:all": "npm install && cd server && npm install && cd ../client && npm install",
     "dev": "concurrently -n SERVER,CLIENT -c blue,green \"npm run dev:server\" \"npm run dev:client\"",
