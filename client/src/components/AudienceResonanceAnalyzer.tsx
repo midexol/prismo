@@ -63,7 +63,7 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-clay-border/60 pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-brand-periwinkle mb-1">
-            <Zap className="w-4 h-4 text-brand-periwinkle animate-pulse" />
+            <Zap className="w-4 h-4 text-brand-periwinkle" />
             Prismo Audience Resonance Engine™
           </div>
           <h3 className="text-xl font-bold font-display text-clay-fg">

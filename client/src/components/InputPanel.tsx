@@ -108,7 +108,6 @@ export const InputPanel: React.FC<InputPanelProps> = ({ onSubmit, isLoading }) =
                 >
                   <div className="flex items-center justify-between w-full mb-1">
                     <Icon className={`w-4 h-4 ${isSelected ? 'text-brand-periwinkle' : 'text-clay-muted'}`} />
-                    {isSelected && <span className="w-2 h-2 rounded-full bg-brand-periwinkle animate-live" />}
                   </div>
                   <div>
                     <div className="text-xs font-bold">{angle.label}</div>
