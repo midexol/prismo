@@ -44,10 +44,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
         </button>
 
         {/* Header */}
-        <div className="text-center space-y-2 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-brand-indigo/20 border border-brand-periwinkle/30 flex items-center justify-center mx-auto mb-3 text-brand-periwinkle shadow-clay-button">
-            <Sparkles className="w-6 h-6" />
-          </div>
+        <div className="text-center space-y-2 mb-6 pt-2">
           <h2 className="text-2xl font-bold font-display gradient-text">
             {mode === 'signin' ? 'Welcome Back to Prismo' : 'Join Prismo Creator OS'}
           </h2>

@@ -180,12 +180,7 @@ export default function App() {
           {/* User Auth */}
           <div className="flex items-center gap-3">
             {user ? (
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#161514]">
-                <div className="w-6 h-6 rounded-full bg-brand-periwinkle/20 flex items-center justify-center text-brand-periwinkle text-xs font-bold">
-                  {user.name.charAt(0)}
-                </div>
-                <span className="text-xs font-bold text-[#F5F4F1]">{user.name}</span>
-              </div>
+              <span className="text-xs font-bold text-[#F5F4F1] px-4 py-2 rounded-full bg-[#161514]">{user.name}</span>
             ) : (
               <button
                 onClick={() => setIsAuthOpen(true)}
