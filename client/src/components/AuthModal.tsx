@@ -1,9 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// AuthModal.tsx — Claymorphism Sign In & Creator Profile Modal
+// AuthModal.tsx — Text-Only Auth Modal (Matching HextaUI Design Reference)
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react';
-import { X, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -33,29 +32,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-up">
-      <div className="clay-card w-full max-w-md p-6 md:p-8 relative border border-clay-border bg-[#23201F] shadow-clay">
+      <div className="clay-card w-full max-w-md p-6 md:p-8 relative border border-white/5 bg-[#161514] shadow-2xl">
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-clay-input border border-clay-border text-clay-muted hover:text-clay-fg transition-all"
+          className="absolute top-5 right-5 text-xs text-[#8C8782] hover:text-[#F5F4F1] transition-all"
         >
-          <X className="w-4 h-4" />
+          Close
         </button>
 
         {/* Header */}
         <div className="text-center space-y-2 mb-6 pt-2">
-          <h2 className="text-2xl font-bold font-display gradient-text">
-            {mode === 'signin' ? 'Welcome Back to Prismo' : 'Join Prismo Creator OS'}
+          <h2 className="text-2xl font-bold font-display text-[#F5F4F1]">
+            {mode === 'signin' ? 'Prismo' : 'Join Prismo'}
           </h2>
-          <p className="text-xs text-clay-muted">
+          <p className="text-xs text-[#8C8782]">
             {mode === 'signin'
               ? 'Sign in to access your persistent Minds Agent memory'
               : 'Create your account & train your custom repurposing Mind'}
           </p>
         </div>
 
-        {/* Quick Connect Options */}
+        {/* Quick Connect Option */}
         <div className="space-y-3 mb-6">
           <button
             type="button"
@@ -63,23 +62,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
               onLogin({ name: 'Minds Creator', email: 'minds@hellominds.ai', niche: 'Tech & AI' });
               onClose();
             }}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl clay-input border border-brand-periwinkle/30 hover:border-brand-periwinkle text-xs font-bold text-clay-fg transition-all bg-[#1F1C1B]"
+            className="w-full text-center py-3 px-4 rounded-xl clay-input border border-white/5 hover:border-brand-periwinkle text-xs font-bold text-[#F5F4F1] transition-all bg-[#1D1B1A]"
           >
-            <ShieldCheck className="w-4 h-4 text-brand-periwinkle" />
-            Sign in with Minds Account (Recommended)
+            Continue with Minds Account
           </button>
         </div>
 
         <div className="relative my-6 text-center">
-          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-clay-border/60" /></div>
-          <span className="relative px-3 bg-[#23201F] text-[10px] uppercase tracking-widest text-clay-muted font-mono">or email login</span>
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5" /></div>
+          <span className="relative px-3 bg-[#161514] text-[10px] uppercase tracking-widest text-[#8C8782] font-mono">or email</span>
         </div>
 
         {/* Email Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'signup' && (
             <div>
-              <label className="block text-[11px] font-semibold text-clay-muted uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-semibold text-[#8C8782] uppercase tracking-wider mb-1.5">
                 Creator Name
               </label>
               <input
@@ -94,7 +92,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
           )}
 
           <div>
-            <label className="block text-[11px] font-semibold text-clay-muted uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-[#8C8782] uppercase tracking-wider mb-1.5">
               Email Address
             </label>
             <input
@@ -108,7 +106,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-clay-muted uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-semibold text-[#8C8782] uppercase tracking-wider mb-1.5">
               Password
             </label>
             <input
@@ -123,7 +121,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
 
           {mode === 'signup' && (
             <div>
-              <label className="block text-[11px] font-semibold text-clay-muted uppercase tracking-wider mb-1.5">
+              <label className="block text-[11px] font-semibold text-[#8C8782] uppercase tracking-wider mb-1.5">
                 Primary Niche
               </label>
               <input
@@ -137,15 +135,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }
           )}
 
           <div className="pt-2">
-            <button type="submit" className="w-full clay-button py-3.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+            <button type="submit" className="w-full clay-button py-3.5 text-xs uppercase tracking-wider">
               {mode === 'signin' ? 'Sign In to Dashboard' : 'Create Free Account'}
-              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </form>
 
         {/* Toggle Mode */}
-        <div className="mt-6 text-center text-xs text-clay-muted">
+        <div className="mt-6 text-center text-xs text-[#8C8782]">
           {mode === 'signin' ? (
             <p>
               Don't have an account?{' '}

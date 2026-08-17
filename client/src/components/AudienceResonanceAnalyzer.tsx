@@ -1,9 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// AudienceResonanceAnalyzer.tsx — Unique Prismo Virality & Resonance Simulator
+// AudienceResonanceAnalyzer.tsx — Text-Only Predictive Virality (Zero Icons)
 // ─────────────────────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react';
-import { BarChart3, Zap, Flame, TrendingUp, MessageSquareQuote } from 'lucide-react';
 
 interface MetricItem {
   name: string;
@@ -34,7 +33,6 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
 }) => {
   const [selectedTab, setSelectedTab] = useState<'resonance' | 'quotes' | 'platformFit'>('resonance');
 
-  // Predictive resonance metrics generated from Minds intelligence
   const mockResonance: ResonanceData = {
     viralityScore: 92,
     voiceMatchPct: 88,
@@ -60,67 +58,60 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
     <div className="clay-card p-6 md:p-8 space-y-6">
 
       {/* Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-clay-border/60 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-6">
         <div>
-          <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-brand-periwinkle mb-1">
-            <Zap className="w-4 h-4 text-brand-periwinkle" />
-            Prismo Audience Resonance Engine™
+          <div className="text-xs font-extrabold uppercase tracking-widest text-brand-periwinkle mb-1">
+            Prismo Audience Resonance Engine
           </div>
-          <h3 className="text-xl font-bold font-display text-clay-fg">
+          <h3 className="text-xl font-bold font-display text-[#F5F4F1]">
             Predictive Virality & Voice Alignment Analysis
           </h3>
-          <p className="text-xs text-clay-muted mt-1">
-            Real-time simulation based on your niche: <span className="text-clay-fg font-semibold">{niche}</span>
+          <p className="text-xs text-[#8C8782] mt-1">
+            Real-time simulation based on your niche: <span className="text-[#F5F4F1] font-semibold">{niche}</span>
           </p>
         </div>
 
         {/* Big Virality Score Badge */}
-        <div className="flex items-center gap-4 bg-[#1C1A19] border border-clay-border px-5 py-3 rounded-2xl shadow-inner">
+        <div className="flex items-center gap-4 bg-[#1B1918] border border-white/5 px-5 py-3 rounded-2xl">
           <div className="text-right">
-            <span className="text-[10px] uppercase font-bold tracking-wider text-clay-muted block">Predicted Virality</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#8C8782] block">Predicted Virality</span>
             <span className="text-2xl font-black font-display text-emerald-400">{mockResonance.viralityScore}/100</span>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-sm">
-            <Flame className="w-5 h-5 fill-emerald-400/20" />
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-clay-border/40 pb-2">
+      <div className="flex items-center gap-2 border-b border-white/5 pb-2">
         <button
           onClick={() => setSelectedTab('resonance')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             selectedTab === 'resonance'
               ? 'bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/30'
-              : 'text-clay-muted hover:text-clay-fg'
+              : 'text-[#8C8782] hover:text-[#F5F4F1]'
           }`}
         >
-          <BarChart3 className="w-3.5 h-3.5" />
           Hook Impact Score
         </button>
 
         <button
           onClick={() => setSelectedTab('quotes')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             selectedTab === 'quotes'
               ? 'bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/30'
-              : 'text-clay-muted hover:text-clay-fg'
+              : 'text-[#8C8782] hover:text-[#F5F4F1]'
           }`}
         >
-          <MessageSquareQuote className="w-3.5 h-3.5" />
           High-Retention Nuggets ({mockResonance.retentionQuotes.length})
         </button>
 
         <button
           onClick={() => setSelectedTab('platformFit')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             selectedTab === 'platformFit'
               ? 'bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/30'
-              : 'text-clay-muted hover:text-clay-fg'
+              : 'text-[#8C8782] hover:text-[#F5F4F1]'
           }`}
         >
-          <TrendingUp className="w-3.5 h-3.5" />
           Platform Suitability
         </button>
       </div>
@@ -129,19 +120,18 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
       {selectedTab === 'resonance' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-up">
           {mockResonance.hookMetrics.map((m, idx) => (
-            <div key={idx} className="clay-input p-4 border border-clay-border/80 bg-[#1C1A19]">
+            <div key={idx} className="clay-input p-4 border border-white/5 bg-[#1B1918]">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-clay-fg">{m.name}</span>
+                <span className="text-xs font-bold text-[#F5F4F1]">{m.name}</span>
                 <span className="text-xs font-mono font-extrabold text-brand-periwinkle">{m.score}%</span>
               </div>
-              {/* Progress bar */}
-              <div className="w-full h-2 bg-clay-border/60 rounded-full overflow-hidden mb-2">
+              <div className="w-full h-2 bg-[#252220] rounded-full overflow-hidden mb-2">
                 <div
                   className="h-full bg-gradient-to-r from-brand-indigo to-brand-periwinkle rounded-full transition-all duration-500"
                   style={{ width: `${m.score}%` }}
                 />
               </div>
-              <p className="text-[11px] text-clay-muted leading-relaxed">{m.detail}</p>
+              <p className="text-[11px] text-[#8C8782] leading-relaxed">{m.detail}</p>
             </div>
           ))}
         </div>
@@ -151,14 +141,14 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
       {selectedTab === 'quotes' && (
         <div className="space-y-3 animate-fade-up">
           {mockResonance.retentionQuotes.map((q, idx) => (
-            <div key={idx} className="clay-input p-4 border border-clay-border/80 bg-[#1C1A19] flex items-start gap-4">
+            <div key={idx} className="clay-input p-4 border border-white/5 bg-[#1B1918] flex items-start gap-4">
               <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-brand-periwinkle/10 text-brand-periwinkle border border-brand-periwinkle/20 shrink-0">
                 {q.timestamp}
               </span>
               <div className="space-y-1 flex-1">
-                <p className="text-xs font-medium text-clay-fg italic">"{q.text}"</p>
+                <p className="text-xs font-medium text-[#F5F4F1] italic">"{q.text}"</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-clay-muted uppercase tracking-wider">Repurposed As:</span>
+                  <span className="text-[10px] font-bold text-[#8C8782] uppercase tracking-wider">Repurposed As:</span>
                   <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">{q.angle}</span>
                 </div>
               </div>
@@ -170,28 +160,28 @@ export const AudienceResonanceAnalyzer: React.FC<AudienceResonanceAnalyzerProps>
       {/* TAB 3: Platform Fit Matrix */}
       {selectedTab === 'platformFit' && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-up">
-          <div className="clay-input p-4 bg-[#1C1A19] space-y-2 border border-sky-500/30">
+          <div className="clay-input p-4 bg-[#1B1918] space-y-2 border border-sky-500/30">
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold text-sky-400">X (Twitter)</span>
               <span className="text-xs font-mono font-bold text-emerald-400">{mockResonance.platformFit.twitter.score}/100</span>
             </div>
-            <p className="text-xs text-clay-muted leading-relaxed">{mockResonance.platformFit.twitter.reason}</p>
+            <p className="text-xs text-[#8C8782] leading-relaxed">{mockResonance.platformFit.twitter.reason}</p>
           </div>
 
-          <div className="clay-input p-4 bg-[#1C1A19] space-y-2 border border-indigo-500/30">
+          <div className="clay-input p-4 bg-[#1B1918] space-y-2 border border-indigo-500/30">
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold text-indigo-400">LinkedIn</span>
               <span className="text-xs font-mono font-bold text-emerald-400">{mockResonance.platformFit.linkedin.score}/100</span>
             </div>
-            <p className="text-xs text-clay-muted leading-relaxed">{mockResonance.platformFit.linkedin.reason}</p>
+            <p className="text-xs text-[#8C8782] leading-relaxed">{mockResonance.platformFit.linkedin.reason}</p>
           </div>
 
-          <div className="clay-input p-4 bg-[#1C1A19] space-y-2 border border-purple-500/30">
+          <div className="clay-input p-4 bg-[#1B1918] space-y-2 border border-purple-500/30">
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold text-purple-400">YouTube Shorts</span>
               <span className="text-xs font-mono font-bold text-emerald-400">{mockResonance.platformFit.youtube_shorts.score}/100</span>
             </div>
-            <p className="text-xs text-clay-muted leading-relaxed">{mockResonance.platformFit.youtube_shorts.reason}</p>
+            <p className="text-xs text-[#8C8782] leading-relaxed">{mockResonance.platformFit.youtube_shorts.reason}</p>
           </div>
         </div>
       )}
