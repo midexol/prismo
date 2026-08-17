@@ -43,7 +43,7 @@ app.get('/api/health', (_req, res) => {
 // Request body:  { url: string, niche: string }
 // Response:      { drafts, adapted_from_memory, memory_insight, transcript_preview }
 app.post('/api/repurpose', async (req, res) => {
-  const { url, niche } = req.body as { url?: string; niche?: string };
+  const { url, niche, angle } = req.body as { url?: string; niche?: string; angle?: string };
 
   // Basic validation
   if (!url || !url.trim()) {
@@ -58,8 +58,8 @@ app.post('/api/repurpose', async (req, res) => {
     const transcript = await fetchTranscript(url.trim());
     console.log(`✅ Transcript fetched (${transcript.length} chars)`);
 
-    console.log(`🧠 Sending to Minds Agent...`);
-    const result = await repurposeWithMinds(transcript, niche.trim());
+    console.log(`🧠 Sending to Minds Agent (angle: ${angle || 'contrarian'})...`);
+    const result = await repurposeWithMinds(transcript, niche.trim(), angle || 'contrarian');
     console.log(`✅ Minds Agent responded (adapted_from_memory: ${result.adapted_from_memory})`);
 
     return res.json({

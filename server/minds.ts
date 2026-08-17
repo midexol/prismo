@@ -75,16 +75,16 @@ async function getMindId(): Promise<string> {
 // ─── Main function: ask the agent to repurpose a transcript ───────────────
 export async function repurposeWithMinds(
   transcript: string,
-  niche: string
+  niche: string,
+  angle: string = 'contrarian'
 ): Promise<MindsRepurposeResult> {
   const client = getClient();
   const mindId = await getMindId();
 
-  // Make sure a conversation exists (creates one if it doesn't)
   await client.ensureConversation(CONVERSATION_ALIAS, mindId);
 
-  // Build the prompt — the agent's Soul will do the heavy lifting
   const prompt = `CREATOR NICHE: ${niche}
+TARGET ANGLE: ${angle.toUpperCase()}
 
 TRANSCRIPT:
 ${transcript}
