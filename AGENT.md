@@ -1,4 +1,4 @@
-# AGENT.md — RepurposeAI Coding Agent Directive
+# AGENT.md — Prismo Minds Agent Directive
 
 > Read this file first if you are an AI coding assistant working on this project.
 
@@ -6,22 +6,22 @@
 
 ## What This Project Does
 
-**RepurposeAI** converts YouTube video transcripts into multi-platform content (X Thread, LinkedIn, YouTube Shorts) using a real Minds Agent. The agent uses its conversation history as persistent memory — it learns a creator's preferred hook styles over time and adapts future outputs.
+**Prismo** converts YouTube video transcripts into multi-platform content (X Thread, LinkedIn, YouTube Shorts) using a real Minds Agent. The agent uses its conversation history as persistent memory — it learns a creator's preferred hook styles over time and adapts future outputs.
 
-This is a hackathon submission for **Creative Minds Jam #1** by Minds/Animoca Brands.
+This is a submission for **Creative Minds Jam #1** by Minds/Animoca Brands.
 
 ---
 
-## Architecture
+## Backend Architecture
 
 ```
-client/ (React + Vite)         server/ (Node.js + Express)
-     |                                  |
-     |-- POST /api/repurpose ---------> |-- youtube-transcript (npm)
-     |                                  |-- minds-client-lib (official SDK)
-     |-- POST /api/approve -----------> |-- sends feedback to Minds conversation
-     |                                  |
-     |-- GET /api/memory  -----------> |-- returns Minds conversation history
+server/ (Node.js + Express)
+     |
+     |-- youtube-transcript (npm) -> Fetches YouTube transcript
+     |-- minds-client-lib (official SDK) -> Interacts with Minds AI Agent
+     |-- POST /api/repurpose -> Processes video & generates drafts
+     |-- POST /api/approve -> Sends creator feedback to Minds conversation
+     |-- GET /api/memory -> Returns Minds conversation history
 ```
 
 ---
@@ -33,11 +33,6 @@ client/ (React + Vite)         server/ (Node.js + Express)
 | `server/index.ts` | Express server — defines all API routes |
 | `server/transcript.ts` | Fetches YouTube transcript via `youtube-transcript` npm package |
 | `server/minds.ts` | All Minds Agent interactions (send message, wait for reply, get history) |
-| `client/src/App.tsx` | Main React app — holds all state, calls the server API |
-| `client/src/components/InputPanel.tsx` | YouTube URL + niche input form |
-| `client/src/components/DraftCard.tsx` | Renders one platform draft (approve / regenerate actions) |
-| `client/src/components/MemoryPanel.tsx` | Shows Minds conversation history (the persistence proof) |
-| `client/src/components/LoadingState.tsx` | Animated loading screen during generation |
 
 ---
 
@@ -66,7 +61,7 @@ await client.sendMessage({ alias: 'repurpose-main', messageText: prompt });
 const { reply } = await client.waitForReply({ alias: 'repurpose-main' });
 ```
 
-The Minds conversation IS the persistent memory — every approval the user makes is sent as a message, so the agent can reference it in future sessions.
+The Minds conversation IS the persistent memory — every approval the creator makes is sent as a message, so the agent can reference it in future sessions.
 
 ---
 
@@ -75,15 +70,15 @@ The Minds conversation IS the persistent memory — every approval the user make
 1. **Never mock the Minds API** — every Minds call must be real. The persistence demo depends on it.
 2. **Keep the conversation alias** `'repurpose-main'` consistent — this is how memory persists.
 3. **Do not change the JSON format** the server expects from the Minds Agent — see `server/minds.ts` for the schema.
-4. **Run `npm run build` in `client/`** and `npx tsc --noEmit` in `server/` before declaring done.
+4. **Run `npx tsc --noEmit` in `server/`** before declaring done.
 5. **Do not commit `.env`** — it is in `.gitignore` for a reason.
 
 ---
 
-## Running Locally
+## Running Backend Server Locally
 
 ```bash
-# From root folder
-npm run install:all  # installs everything
-npm run dev          # runs server (port 3001) + client (port 5173) together
+cd server
+npm install
+npx tsx index.ts   # runs Express server on port 3001
 ```
